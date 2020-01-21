@@ -17,6 +17,7 @@ namespace boot {
 		
 		server_side::Server* server = new MySerialServer();
 		server->open(atoi(argv[1]), handle);
+		return 0;
 	}
 }
 

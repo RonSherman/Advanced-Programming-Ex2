@@ -3,7 +3,7 @@
 //
 
 #include "FileCacheManager.h"
-template <class Solution>
+/*template <class Solution>
 bool FileCacheManager<Solution>::hasSolution(std::string s) {
     return false;
 }
@@ -14,4 +14,4 @@ Solution FileCacheManager<Solution>::getSolution(std::string s) {
 template <class Solution>
 int FileCacheManager<Solution>::setSolution(std::string s, Solution sol) {
     return 0;
-}
+}*/

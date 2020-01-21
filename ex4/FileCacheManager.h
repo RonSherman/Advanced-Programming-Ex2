@@ -12,11 +12,15 @@ using namespace problem_solving;
 template<typename Solution>
 class FileCacheManager : public CacheManager<std::string, Solution> {
 public:
-    bool hasSolution(std::string s) override;
+	bool hasSolution(std::string s) override { return false; };
 
-	Solution getSolution(std::string p) override;
+	Solution getSolution(std::string p) override {
+		return Solution();
+	};
 
-    int setSolution(std::string p, Solution sol ) override;
+	int setSolution(std::string p, Solution sol) override {
+		return 0;
+	};
 };
 
 
