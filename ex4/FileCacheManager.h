@@ -7,20 +7,23 @@
 
 #include "interfaces.h"
 #include <string>
-using namespace problem_solving;
+#include <unordered_map>
+#include <unordered_set>
+using namespace std;
 
-template<typename Solution>
-class FileCacheManager : public CacheManager<std::string, Solution> {
+//template<typename Solution>
+class FileCacheManager : public problem_solving::CacheManager<string, string> {
+	int capacity = 0;
+	//hold list of hashed string problems, to check if we have a file for it
+	unordered_set <string> set;
+	//list <string> names;
+	//unordered_map <string, pair <T, list <string>::iterator>> map;
 public:
-	bool hasSolution(std::string s) override { return false; };
+	bool hasSolution(string s) override ;
 
-	Solution getSolution(std::string p) override {
-		return Solution();
-	};
+	std::string getSolution(string p) override;
 
-	int setSolution(std::string p, Solution sol) override {
-		return 0;
-	};
+	void setSolution(std::string p, string sol) override;
 };
 
 

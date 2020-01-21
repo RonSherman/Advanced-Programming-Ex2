@@ -32,7 +32,7 @@ namespace problem_solving {
     public:
         virtual bool hasSolution(Solution s) = 0;
         virtual Solution getSolution(Problem p) = 0;
-        virtual int setSolution(Problem p, Solution s) = 0;
+        virtual void setSolution(Problem p, Solution s) = 0;
     };
 }
 

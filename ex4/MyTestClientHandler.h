@@ -11,10 +11,10 @@
 #include "FileCacheManager.h"
 class MyTestClientHandler : public client_handler::ClientHandler {
 	problem_solving::Solver < std::string, std::string> *s;
-	FileCacheManager<std::string>* cm;
+	FileCacheManager* cm;
 public:
 	MyTestClientHandler(problem_solving::Solver<std::string, std::string>* solver,
-		FileCacheManager<std::string>* cache) : s(solver), cm(cache) {};
+		FileCacheManager* cache) : s(solver), cm(cache) {};
 	int handleClient(int socket) override;
 };
 

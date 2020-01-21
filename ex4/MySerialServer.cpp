@@ -13,6 +13,7 @@
 #include <iostream>
 using namespace std;
 int MySerialServer::open(int port, client_handler::ClientHandler* c) {
+	cout << "opened" <<endl;
 	/*//creating a socket
 	int sockid = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockid == -1) {
@@ -37,7 +38,9 @@ int MySerialServer::open(int port, client_handler::ClientHandler* c) {
 	this->openedConn = true;*/
 	//create a listener for a client
 	std::thread thr(&MySerialServer::startClients,this,port,c);
-	thr.detach();
+	thr.join();
+	//while (this->openedConn) {
+	//}
 	//while this server is listening, get a client
 	/*while (this->openedConn) {
 		//accept the client
@@ -75,7 +78,7 @@ void MySerialServer::startClients(int port, client_handler::ClientHandler* c) {
 		exit(1);
 	}
 	struct timeval tv;
-	tv.tv_sec = 10;
+	tv.tv_sec = 120;
 	setsockopt(sockid, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
 	//open connection to server
 	struct sockaddr_in address;
@@ -94,6 +97,7 @@ void MySerialServer::startClients(int port, client_handler::ClientHandler* c) {
 		cout << "listening my serial server failed" << endl;
 		exit(1);
 	}
+	cout << "started listening on server " << endl;
 	using namespace std::chrono;
 	auto start = std::chrono::high_resolution_clock::now();
 	this->openedConn = true;
@@ -113,6 +117,7 @@ void MySerialServer::startClients(int port, client_handler::ClientHandler* c) {
 		//if we got a client, reset the timer
 		start = std::chrono::high_resolution_clock::now();
 	}
+	this->close();
 	//close(sockid);
 }
 int MySerialServer::close() {
