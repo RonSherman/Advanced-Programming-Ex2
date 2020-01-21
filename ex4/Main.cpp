@@ -16,7 +16,7 @@ namespace boot {
 		MyTestClientHandler* handle = new MyTestClientHandler(sol, cm);
 		
 		server_side::Server* server = new MySerialServer();
-		server->open(argv[0], handle);
+		server->open(atoi(argv[1]), handle);
 	}
 }
 
