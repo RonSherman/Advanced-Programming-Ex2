@@ -22,8 +22,8 @@ namespace server_side {
 }
 
 namespace problem_solving {
-    template <typename Problem, typename Solution> 
-	class Solver{
+    template <typename Problem, typename Solution>
+	class Solver {
     public:
         virtual Solution solve(Problem p) = 0;
     };

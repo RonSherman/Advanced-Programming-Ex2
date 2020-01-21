@@ -10,7 +10,7 @@
 using namespace problem_solving;
 
 template<typename Solution>
-class FileCacheManager : public CacheManager<std::string,typename Solution> {
+class FileCacheManager : public CacheManager<std::string, Solution> {
 public:
     bool hasSolution(std::string s) override;
 

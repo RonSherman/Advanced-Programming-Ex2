@@ -9,7 +9,9 @@
 #include <sys/socket.h>
 #include <netinet/in.h> 
 #include <unistd.h> 
-#include <stdlib.h> 
+#include <stdlib.h>
+#include <iostream>
+using namespace std;
 int MySerialServer::open(int port, client_handler::ClientHandler* c) {
 	//creating a socket
 	int sockid = socket(AF_INET, SOCK_STREAM, 0);
@@ -70,3 +72,5 @@ int MySerialServer::close() {
 	this->openedConn = false;
     return 0;
 }
+
+MySerialServer::MySerialServer() {}
