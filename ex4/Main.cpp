@@ -13,7 +13,10 @@ int main(int argc, char* argv[]) {
 	server_side::Server* server = new MySerialServer();
 	using namespace std;
 	cout << "started server" << endl;
-	server->open(atoi(argv[1]), handle);
+	if(argc>=2)
+		server->open(atoi(argv[1]), handle);
+	else
+		server->open(5600, handle);
 	//server->open(5600, handle);
 	return 0;
 }
