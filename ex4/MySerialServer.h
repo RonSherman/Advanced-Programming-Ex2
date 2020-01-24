@@ -13,7 +13,7 @@ public:
     MySerialServer();
 
     int open(int port, client_handler::ClientHandler* c) override;
-	void startClients(int port, client_handler::ClientHandler* c);
+	void startClientsPartB(int port, client_handler::ClientHandler* c);
     int close() override;
 
 };

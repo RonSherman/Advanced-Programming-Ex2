@@ -3,7 +3,8 @@
 #include "State.h"
 template <typename T>
 class StateComparator{
-	bool operator ()(const State<T>* lhs, const State<T>* rhs){
+public:
+	bool operator ()(State<T>* lhs, State<T>* rhs){
 		return lhs->getCost() > rhs->getCost();
 	}
 };

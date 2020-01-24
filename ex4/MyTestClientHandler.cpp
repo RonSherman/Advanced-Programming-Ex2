@@ -49,4 +49,6 @@ int MyTestClientHandler::handleClient(int socket){
 			cout << "new solution generated" << endl;
 		}
 	}
+	//close the client
+	close(socket);
 };

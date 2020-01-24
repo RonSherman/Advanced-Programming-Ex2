@@ -1,10 +1,13 @@
+#ifndef EX4_MATRIXPROBLEM_H
+#define EX4_MATRIXPROBLEM_H
 #include "Searchable.h"
 #include "CordinateState.h"
 #include <vector>
 using namespace std;
 class MatrixProblem : public Searchable<std::pair<int,int>>{
 private:
-	int dim;
+	int dimRows;
+	int dimColumns;
 	//we need a double array, for each x and y
 	int** costs;
 	State<std::pair<int, int>>*** states;
@@ -16,3 +19,4 @@ public:
 	std::vector<State<std::pair<int, int>>*> getAllNeighbors(State<std::pair<int, int>>* state) override ;
 
 };
+#endif

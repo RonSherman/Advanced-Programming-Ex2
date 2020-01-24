@@ -13,6 +13,7 @@ bool hasEnding(std::string const &fullString, std::string const &ending) {
 		return false;
 	}
 }
+//convert a string of X,Y,... (with/without spaces) to a vector of ints
 vector<int> getInts(string str) {
 	vector<int> costs;
 	string line = std::string(str);
@@ -51,7 +52,7 @@ int MyClientHandler::handleClient(int socket) {
 		//	line = line.substr(0, line.find('\r'));
 		//if (line.find('\n') != string::npos)
 			//line = line.substr(0, line.find('\n'));
-		//add to the vertor
+		//add to the string
 		if (!hasEnding(buffer, "end\n")) {
 			//messages.push_back(line);
 			together = together + line;
@@ -72,8 +73,11 @@ int MyClientHandler::handleClient(int socket) {
 	//now we have every line, including entry and exit
 	string goal = messages.back();
 	messages.pop_back();
+	std::pair<int, int> goalPair(stoi(goal.substr(0, goal.find(","))), stoi(goal.substr(goal.find(",")+1)));
+
 	string initial= messages.back();
 	messages.pop_back();
+	std::pair<int, int> initialPair(stoi(goal.substr(0, goal.find(","))), stoi(goal.substr(goal.find(",") + 1)));
 	vector<vector<int>> costs;
 	//now interpet these into tuples
 	for (auto it = messages.begin(); it != messages.end(); it++) {
@@ -83,8 +87,14 @@ int MyClientHandler::handleClient(int socket) {
 		costs.push_back(getInts(line));
 	}
 	//create the problem
-	//MatrixProblem mp;
+	MatrixProblem mp(costs,initialPair,goalPair);
+
 	//use the solver to solve it and return a solution (still need to decide what's it)
+	vector<State<std::pair<int, int>>*> sol=this->solver->solve(mp);
+	//convert the end-to-start vector to the printable string
+	for (auto it = sol.begin(); it != sol.end(); it++) {
+
+	}
 	//send the solution back to client
 	//this->
 }

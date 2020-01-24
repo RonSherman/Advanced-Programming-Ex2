@@ -1,6 +1,6 @@
 #include "MyPriorityQueue.h"
 #include <vector>
-template <typename T>
+/*template <typename T>
 State<T>* MyPriorityQueue<T>::pop() {
 	State<T>* sta =this->queue.top();
 	this->queue.pop();
@@ -43,4 +43,4 @@ void MyPriorityQueue<T>::decrease_key(State<T>* state){
 	//removing from queue is harder- set to minus infinity and pop
 	//int minus_inf=std::numeric_limits<int>::min();
 	//s
-}
+}*/

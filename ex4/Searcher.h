@@ -1,9 +1,11 @@
 #ifndef FLIGHTSIMULATOR_SEARCH_H
 #define FLIGHTSIMULATOR_SEARCH_H
 #include "Searchable.h"
-template <typename Solution,typename T>
+#include <vector>
+template <typename T>
 class Searcher {
-	Solution search(Searchable<T> s)=0;
-	int getNumOfNodesEvaluated()=0;
+public:
+	virtual std::vector<State<T>*> search(Searchable<T>* s)=0;
+	virtual int getNumOfNodesEvaluated()=0;
 };
 #endif

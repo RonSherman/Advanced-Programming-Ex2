@@ -4,19 +4,33 @@
 #include "FileCacheManager.h"
 #include "MyTestClientHandler.h"
 #include "MySerialServer.h"
+#include "MyClientHandler.h"
+#include "BestSearch.h"
+#include "MyPriorityQueue.h"
 #include <iostream>
+#include <vector>
 int main(int argc, char* argv[]) {
-	problem_solving::Solver< std::string, std::string>* sol = new StringReverser();
+	
+	//part B
+	/*problem_solving::Solver< std::string, std::string>* sol = new StringReverser();
 	FileCacheManager* cm = new FileCacheManager();
 	MyTestClientHandler* handle = new MyTestClientHandler(sol, cm);
-
+	*/
 	server_side::Server* server = new MySerialServer();
-	using namespace std;
+	BestSearch<pair<int,int>>* searcher = new BestSearch<pair<int, int>>();
+	//using namespace std;
+	SolverSearcher<MatrixProblem,vector<State<pair<int, int>>*> ,pair<int, int>>* adapter =
+		new SolverSearcher<MatrixProblem, vector<State<pair<int, int>>*>, pair<int, int>>(searcher);
+	//TOOD- cache isn't actually doing anything right now
+	FileCacheManager* cm = new FileCacheManager();
+	MyClientHandler* handler = new MyClientHandler(adapter,cm);
+	
 	cout << "started server" << endl;
 	if(argc>=2)
-		server->open(atoi(argv[1]), handle);
+		server->open(atoi(argv[1]), handler);
 	else
-		server->open(5600, handle);
+		server->open(5600, handler);
 	//server->open(5600, handle);
+
 	return 0;
 }
