@@ -71,6 +71,7 @@ int MySerialServer::open(int port, client_handler::ClientHandler* c) {
 }
 //TODO- timeout timer
 void MySerialServer::startClientsPartB(int port, client_handler::ClientHandler* c) {
+	cout << "got here" << endl;
 	//creating a socket
 	int sockid = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockid == -1) {
@@ -117,10 +118,10 @@ void MySerialServer::startClientsPartB(int port, client_handler::ClientHandler* 
 		//if we got a client, reset the timer
 		//start = std::chrono::high_resolution_clock::now();
 	}
-	this->close();
-	//close(sockid);
+	this->closeServer();
+	close(sockid);
 }
-int MySerialServer::close() {
+int MySerialServer::closeServer() {
 	this->openedConn = false;
 	//close(sockid);
     return 0;

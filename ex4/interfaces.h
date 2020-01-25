@@ -17,7 +17,7 @@ namespace server_side {
         int port;
     public:
         virtual int open(int port, client_handler::ClientHandler* c) = 0;
-        virtual int close() = 0;
+        virtual int closeServer() = 0;
     };
 }
 

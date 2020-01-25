@@ -14,8 +14,9 @@ int main(int argc, char* argv[]) {
 	//part B
 	/*problem_solving::Solver< std::string, std::string>* sol = new StringReverser();
 	FileCacheManager* cm = new FileCacheManager();
-	MyTestClientHandler* handle = new MyTestClientHandler(sol, cm);
-	*/
+	MyTestClientHandler* handler = new MyTestClientHandler(sol, cm);
+	server_side::Server* server = new MySerialServer();*/
+	//Part C
 	server_side::Server* server = new MySerialServer();
 	BestSearch<pair<int,int>>* searcher = new BestSearch<pair<int, int>>();
 	//using namespace std;
@@ -30,6 +31,8 @@ int main(int argc, char* argv[]) {
 		server->open(atoi(argv[1]), handler);
 	else
 		server->open(5600, handler);
+	//5State<int> state;
+	//MyPriorityQueue<int> queue();
 	//server->open(5600, handle);
 
 	return 0;

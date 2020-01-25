@@ -14,7 +14,7 @@ public:
 
     int open(int port, client_handler::ClientHandler* c) override;
 	void startClientsPartB(int port, client_handler::ClientHandler* c);
-    int close() override;
+    int closeServer() override;
 
 };
 

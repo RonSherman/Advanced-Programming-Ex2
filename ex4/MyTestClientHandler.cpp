@@ -25,7 +25,7 @@ int MyTestClientHandler::handleClient(int socket){
 			line = line.substr(0, line.find('\r'));
 		if (line.find('\n') != string::npos)
 			line = line.substr(0, line.find('\n'));
-		cout << "got from client- " << line << endl;
+		cout << "got from client:" << line << endl;
 		//cout << "==================" << endl;
 		//if has sol, return it
 		if (this->cm->hasSolution(line)) {

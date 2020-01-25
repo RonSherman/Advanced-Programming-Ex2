@@ -29,10 +29,17 @@ public:
 			std::vector<State<T>*> neighbors = s->getAllNeighbors(n);
 			auto it = neighbors.begin();
 			//for each neighbor
-			/*for (; it != neighbors.end(); it++) {
+			for (; it != neighbors.end(); it++) {
+				//if it's unreachable
+				//if ((*it)->getCost() == -1)
+				//	continue;
+				//need to get moving cost on 'it' somehow
+				int currCost = n->getCost() + s->getMovingCost(n);
 				//if isn't in closed and isn't in open
 				if (closed.find(*it) == closed.end() && !this->openList.contains(*it)) {
-					//it.setParent(n)
+					//this isn't done by searchable
+					(*it)->setParent(n);
+					(*it)->setCost(currCost);
 					this->openList.insert(*it);
 				}
 				else {
@@ -46,14 +53,20 @@ public:
 					}
 					//else, the node isn't in closed and is in open
 					else {
-						//remove the old value
+						
 						//this->openList.remove(*it);
 						//insert the node with the new value
 						//this->openList.insert(*it);
-						this->openList.decrease_key(*it);
+						//this->openList.decrease_key(*it);
+						//if it's lower tham before, remove the old value
+						if ((*it)->getCost()>currCost) {
+							(*it)->setParent(n);
+							(*it)->setCost(currCost);
+							this->openList.decrease_key(*it);
+						}
 					}
 				}
-			}*/
+			}
 		}
 	};
 };

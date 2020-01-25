@@ -16,8 +16,9 @@ public:
 	void decrease_key(State<T>* state){
 		//remove from queue and set
 	//this->set.erase(state);
-	//we will change the value, pop everyone out and insert back in
 	//*state->cost = newCost;
+	//we will change the value, pop everyone out and insert back in
+
 	//temporary for holding the objects
 		std::vector<State<T>*> temp;
 		while (this->queue.size() > 0) {
@@ -26,7 +27,8 @@ public:
 		}
 		//insert everything back in, now it will be sorted, with the new value in place
 		while (temp.size() > 0) {
-			State<T>* sa = temp.pop_back();
+			State<T>* sa = temp.back();
+			temp.pop_back();
 			this->queue.push(sa);
 		}
 		//removing from queue is harder- set to minus infinity and pop
@@ -36,12 +38,12 @@ public:
 	State<T>* pop() {
 		State<T>* sta = this->queue.top();
 		this->queue.pop();
-		//remove from the set
+		//remove from the set also
 		this->set.erase(sta);
 		return sta;
 	};
 	void insert(State<T>* state) {
-		//ad to queue and set
+		//add to queue and set
 		this->queue.push(state);
 		this->set.insert(state);
 	};
