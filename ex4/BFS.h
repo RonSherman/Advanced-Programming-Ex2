@@ -7,6 +7,8 @@
 
 #include <queue>
 #include <unordered_set>
+#include <unordered_map>
+#include <string>
 #include "Searcher.h"
 #include "State.h"
 
@@ -17,14 +19,15 @@ class BFS  : public Searcher<T>  {
 
 public:
     int getNumOfNodesEvaluated() override { return this->numNodesEvaluated; } ;
-    std::vector<State<T>*> search(Searchable<T>* s) override {
-        queue.push(s->getInitialState());
-        std::unordered_set<State<T>*> been;
-        been.insert(s->getInitialState());
-
+	std::vector<State<T>*> search(Searchable<T>* s) override {
+		queue.push(s->getInitialState());
+		std::unordered_map<std::string, State<T>*> been;
+		been.insert({ s->getInitialState()->toString(),s->getInitialState()});
+		//{ n->toString(), n }
 
         while (!queue.empty()) {
-            State<T>* n = queue.pop();
+			State<T>* n = queue.front();
+			queue.pop();
             numNodesEvaluated++;
             if (n->equals(s->getGoalState())) {
                 return n->backtrack();
@@ -38,8 +41,8 @@ public:
                 int currCost = n->getCost() + s->getMovingCost(n);
 
                 //if isn't in closed and isn't in open
-                if (!been.find(*it)) {
-                    been.insert(*it);
+                if (been.find((*it)->toString()) == been.end()) {
+					been.insert({ (*it)->toString(),*it });
 
                     //this isn't done by searchable
                     (*it)->setParent(n);

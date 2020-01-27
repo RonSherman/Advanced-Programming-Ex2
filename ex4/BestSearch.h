@@ -8,12 +8,14 @@
 #include <vector>
 #include <iostream>
 #include "CordinateState.h"
+#include <unordered_map>
+#include "AStarComparator.h"
 using namespace std;
 template <typename T>
 class BestSearch : public Searcher<T> {
 private:
 	int numNodesEvaluated = 0;
-	MyPriorityQueue<T> openList;
+	MyPriorityQueue<T,AStarComparator> openList;
 	//std::pri
 	//priority queue openList
 	//set ClosedList
@@ -29,7 +31,7 @@ public:
 		//};
 		
 		//this->openList.setQueue(cmp);
-		this->openList.insert(s->getInitialState());
+		
 		//this->;
 		/*struct myClassComp {
 			bool operator() (const State<T>* lhs, const State<T>* rhs) const
@@ -38,15 +40,17 @@ public:
 			}
 		};*/
 		//std::unordered_set<State<T>*, myClassComp> closed;
-		std::unordered_set< State<T>*> closed;
+		this->openList.insert(s->getInitialState());
+		//std::unordered_set< State<T>*> closed;
+		std::unordered_map< string, State<T>*> closed;
 		while (this->openList.length() > 0) {
-			cout << "executed loop:BestSearch" << endl;
+			//cout << "executed loop:BestSearch" << endl;
 			State<T>* n = this->openList.pop();
 			this->numNodesEvaluated++;
-			if (closed.find(n) == closed.end()) {
-				closed.insert(n);
+			if (closed.find(n->toString()) == closed.end()) {
+				closed.insert({ n->toString(),n });
 			}
-			cout << "inserted "<<n->getCost()<< "to closed list-size" <<closed.size()<< endl;
+			//cout << "inserted "<<n->getCost()<< "to closed list-size" <<closed.size()<< endl;
 
 			if (n->equals(s->getGoalState())) {
 				cout << "FOUND GOAL" << endl;
@@ -65,16 +69,16 @@ public:
 			for (; it != neighbors.end(); it++) {
 				int currCost = n->getCost() + s->getMovingCost((*it));
 				//<<(CordinateState)(*(*it))
-				cout << "for each neighbor- "  <<endl;
-				cout << "current cost:" << currCost << endl;
+				//cout << "for each neighbor- "  <<endl;
+				//cout << "current cost:" << currCost << endl;
 				//if it's unreachable
 				//if ((*it)->getCost() == -1)
 				//	continue;
 				//need to get moving cost on 'it' somehow
 				
 				//if isn't in closed and isn't in open
-				if (closed.find(*it) == closed.end() && !this->openList.contains(*it)) {
-					cout << "not in both" << endl;
+				if (closed.find((*it)->toString()) == closed.end() && !this->openList.contains(*it)) {
+					//cout << "not in both" << endl;
 					//this isn't done by searchable
 					(*it)->setParent(n);
 					(*it)->setCost(currCost);
@@ -86,13 +90,13 @@ public:
 					//	this->openList.insert(*it);
 					//}
 					//if in closed, continue loop
-					if (closed.find(*it) != closed.end()) {
-						cout << "found in closed" << endl;
+					if (closed.find((*it)->toString()) != closed.end()) {
+						//cout << "found in closed" << endl;
 						continue;
 					}
 					//else, the node isn't in closed and is in open
 					else {
-						cout << "not in closed and is in open" << endl;
+						//cout << "not in closed and is in open" << endl;
 						//this->openList.remove(*it);
 						//insert the node with the new value
 						//this->openList.insert(*it);

@@ -7,6 +7,8 @@
 #include "MyClientHandler.h"
 #include "BestSearch.h"
 #include "MyPriorityQueue.h"
+#include "BFS.h"
+#include "DFS.h"
 #include <iostream>
 #include <vector>
 int main(int argc, char* argv[]) {
@@ -19,6 +21,7 @@ int main(int argc, char* argv[]) {
 	//Part C
 	server_side::Server* server = new MySerialServer();
 	BestSearch<pair<int,int>>* searcher = new BestSearch<pair<int, int>>();
+	//BestSearch<pair<int, int>>* searcher = new BestSearch<pair<int, int>>();
 	//using namespace std;
 	SolverSearcher<MatrixProblem,vector<State<pair<int, int>>*> ,pair<int, int>>* adapter =
 		new SolverSearcher<MatrixProblem, vector<State<pair<int, int>>*>, pair<int, int>>(searcher);

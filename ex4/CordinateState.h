@@ -11,6 +11,7 @@ public:
 	CordinateState(std::pair<int, int> st) : State(st) { this->cost = 0; };
 	CordinateState(CordinateState& anotherState);
 	friend std::ostream& operator<<(std::ostream& os, const CordinateState& dt);
+	std::string toString () override;
 	//CordinateState() {};
 };
 #endif

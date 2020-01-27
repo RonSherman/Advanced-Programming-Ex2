@@ -6,28 +6,28 @@
 #include <unordered_set>
 #include <iostream>
 #include <functional>
+#include <unordered_map>
 using namespace std;
-template <typename T>
+template <typename T,typename Comparator>
 class MyPriorityQueue {
 private:
 	//the actual priority queue
-	std::priority_queue<State<T>*,std::vector<State<T>*>,StateComparator<T>> queue;
+	std::priority_queue<State<T>*,std::vector<State<T>*>,Comparator> queue;
 	//to check if item in the queue, a set of all the items in queue
-	std::unordered_set < State<T>*> set;
+	//std::unordered_set < State<T>*> set;
+	std::unordered_map<string, State<T>*> map;
 public:
 	//MyPriorityQueue(std::priority_queue newQueue) {
 		//this->queue = newQueue;
 
 	//}
-	void setQueue(const function<bool(T* , T*)> func) {
+	void setQueue(const function<bool(State<T>* , State<T>*)> func) {
 		std::priority_queue<State<T>*, std::vector<State<T>*>, decltype(func)> temp(func);
 		this->queue= temp;
 	}
 	//void remove(State<T>* state);
 	void decrease_key(State<T>* state){
 		//remove from queue and set
-	//this->set.erase(state);
-	//*state->cost = newCost;
 	//we will change the value, pop everyone out and insert back in
 
 	//temporary for holding the objects
@@ -50,14 +50,16 @@ public:
 		State<T>* sta = this->queue.top();
 		this->queue.pop();
 		//remove from the set also
-		this->set.erase(sta);
+		//this->set.erase(sta);
+		this->map.erase(sta->toString());
 		return sta;
 	};
 	void insert(State<T>* state) {
 		//add to queue and set
 		this->queue.push(state);
-		this->set.insert(state);
-		cout << "After insersion queue size is- " << this->queue.size() << endl;
+		//this->set.insert(state);
+		this->map.insert({ state->toString(),state });
+		//cout << "After insersion queue size is- " << this->queue.size() << endl;
 		//cout << "After insersion set size is- " << this->set.size() << endl;
 
 	};
@@ -66,7 +68,7 @@ public:
 	};
 	bool contains(State<T>* state) {
 		//use the set to check contains as its faster, and non existent in priority queue
-		return this->set.find(state) != this->set.end();
+		return this->map.find(state->toString()) != this->map.end();
 	};
 };
 #endif

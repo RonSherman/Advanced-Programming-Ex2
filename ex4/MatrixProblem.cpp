@@ -67,7 +67,7 @@ std::vector<State<std::pair<int, int>>*> MatrixProblem::getAllNeighbors(State<st
 	//need to divide based on where the state is located
 	int i = state->getState().first;
 	int j= state->getState().second;
-	cout << "MatrixProb:searching for neighbors" << i << "," << j << endl;
+	//cout << "MatrixProb:searching for neighbors" << i << "," << j << endl;
 	vector<State<std::pair<int, int>>*> neighbors;
 	//if it's near the bottom line
 	/*if (i == this->dimRows - 1) {
@@ -113,7 +113,7 @@ std::vector<State<std::pair<int, int>>*> MatrixProblem::getAllNeighbors(State<st
 		}
 	}
 	//std::vector<State<std::pair<int, int>>*> vec;
-	cout << "Matrix: vec size:" << neighbors.size() << endl;
+	//cout << "Matrix: vec size:" << neighbors.size() << endl;
 	return neighbors;
 }
 int MatrixProblem::getMovingCost(State<std::pair<int, int>>* state) {

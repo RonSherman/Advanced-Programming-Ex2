@@ -2,6 +2,7 @@
 #define FLIGHTSIMULATOR_STATE_H
 #include <vector>
 #include <iostream>
+#include <string>
 template <typename T>
 class State {
 protected:
@@ -22,5 +23,6 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const State& dt) {
 		//os << cost;
 	};
+	virtual std::string toString()=0;
 };
 #endif
