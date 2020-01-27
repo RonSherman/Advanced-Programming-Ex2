@@ -2,12 +2,12 @@
 // Created by amitnir29 on 27/01/2020.
 //
 
-#include <bits/socket_type.h>
-#include <bits/socket.h>
-#include <iostream>
+#include <thread>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <iostream>
 #include "MyParallelServer.h"
 
 int MyParallelServer::open(int port, client_handler::ClientHandler *c) {
