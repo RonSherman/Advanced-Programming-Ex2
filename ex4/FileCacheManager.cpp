@@ -47,15 +47,17 @@ std::string FileCacheManager::getSolution(std::string p) {
 	ifstream ifile(fileName+".txt");
 	//if file got opened
 	if (ifile) {
+		string total;
 		string sol;
 		//ifile >> sol;
-		while (getline(ifile, sol))
-		{
+		while (getline(ifile, sol)){
+			//cout << sol << endl;
+			total += sol;
 			//cout << line << '\n';
 		}
-		//cout << "got " + sol << endl;
+		//cout << "got " + total << endl;
 		ifile.close();
-		return sol;
+		return total;
 	}
 	else {
 		cout << "FAILED: getSolution opening file" << endl;

@@ -4,6 +4,9 @@
 #include "State.h"
 #include "StateComparator.h"
 #include <unordered_set>
+#include <iostream>
+#include <functional>
+using namespace std;
 template <typename T>
 class MyPriorityQueue {
 private:
@@ -12,6 +15,14 @@ private:
 	//to check if item in the queue, a set of all the items in queue
 	std::unordered_set < State<T>*> set;
 public:
+	//MyPriorityQueue(std::priority_queue newQueue) {
+		//this->queue = newQueue;
+
+	//}
+	void setQueue(const function<bool(T* , T*)> func) {
+		std::priority_queue<State<T>*, std::vector<State<T>*>, decltype(func)> temp(func);
+		this->queue= temp;
+	}
 	//void remove(State<T>* state);
 	void decrease_key(State<T>* state){
 		//remove from queue and set
@@ -46,6 +57,9 @@ public:
 		//add to queue and set
 		this->queue.push(state);
 		this->set.insert(state);
+		cout << "After insersion queue size is- " << this->queue.size() << endl;
+		//cout << "After insersion set size is- " << this->set.size() << endl;
+
 	};
 	int length() {
 		return this->queue.size();
