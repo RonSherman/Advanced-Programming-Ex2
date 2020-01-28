@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 	server_side::Server* server = new MySerialServer();*/
 	//Part C
 	server_side::Server* server = new MyParallelServer();
-	DFS<pair<int,int>>* searcher = new DFS<pair<int, int>>();
+	AStar<pair<int,int>>* searcher = new AStar<pair<int, int>>();
 	//BestSearch<pair<int, int>>* searcher = new BestSearch<pair<int, int>>();
 	//using namespace std;
 	SolverSearcher<MatrixProblem,vector<State<pair<int, int>>*> ,pair<int, int>>* adapter =

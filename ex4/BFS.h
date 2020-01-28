@@ -32,7 +32,7 @@ public:
             numNodesEvaluated++;
             if (n->equals(s->getGoalState())) {
 				//cout << "FOUND GOAL" << endl;
-				cout << "BFS EVALUATED:" << numNodesEvaluated << endl;
+				//cout << "BFS EVALUATED:" << numNodesEvaluated << endl;
 				mutex.unlock();
                 return n->backtrack();
             }

@@ -55,8 +55,8 @@ public:
             //cout << "inserted "<<n->getCost()<< "to closed list-size" <<closed.size()<< endl;
 
             if (n->equals(s->getGoalState())) {
-                cout << "FOUND GOAL" << endl;
-                cout << "ASTAR EVALUATED:" << numNodesEvaluated << endl;
+                //cout << "FOUND GOAL" << endl;
+                //cout << "ASTAR EVALUATED:" << numNodesEvaluated << endl;
 				mutex.unlock();
                 //return backtrace
                 return n->backtrack();
@@ -64,7 +64,7 @@ public:
             std::vector<State<T>*> neighbors = s->getAllNeighbors(n);
             auto it = neighbors.begin();
             if (neighbors.size() == 0) {
-                cout << "NO NEIGHBORS" << endl;
+               // cout << "NO NEIGHBORS" << endl;
             }
             //int currCost = n->getCost() + s->getMovingCost(n);
 
