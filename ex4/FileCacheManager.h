@@ -16,8 +16,6 @@ class FileCacheManager : public problem_solving::CacheManager<string, string> {
 	int capacity = 0;
 	//hold list of hashed string problems, to check if we have a file for it
 	unordered_set <string> set;
-	//list <string> names;
-	//unordered_map <string, pair <T, list <string>::iterator>> map;
 public:
 	bool hasSolution(string s) override ;
 

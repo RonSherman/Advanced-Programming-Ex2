@@ -29,8 +29,6 @@ public:
 			stack.pop();
             numNodesEvaluated++;
             if (n->equals(s->getGoalState())) {
-				//cout << "FOUND GOAL" << endl;
-				//cout << "DFS EVALUATED:" << numNodesEvaluated << endl;
 				mutex.unlock();
                 return n->backtrack();
             }
