@@ -14,5 +14,5 @@ The clients are giving the server problems and with the use of cache and file sa
 g++ -std=c++14 *.cpp -o __name__ -pthread
 ```
 
-# git 
+# Git 
 https://github.com/Ron123456/MitkademEx4
