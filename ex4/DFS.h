@@ -10,6 +10,8 @@
 #include "Searcher.h"
 #include "State.h"
 #include <mutex>
+#include <bits/unordered_map.h>
+
 template <typename T>
 class DFS  : public Searcher<T>  {
     int numNodesEvaluated = 0;
@@ -29,6 +31,8 @@ public:
 			stack.pop();
             numNodesEvaluated++;
             if (n->equals(s->getGoalState())) {
+				//cout << "FOUND GOAL" << endl;
+				//cout << "DFS EVALUATED:" << numNodesEvaluated << endl;
 				mutex.unlock();
                 return n->backtrack();
             }
