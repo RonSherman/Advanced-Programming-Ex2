@@ -9,15 +9,16 @@
 #include <unordered_set>
 #include "Searcher.h"
 #include "State.h"
-
+#include <mutex>
 template <typename T>
 class DFS  : public Searcher<T>  {
     int numNodesEvaluated = 0;
     std::stack<State<T>*> stack;
-
+	std::mutex mutex;
 public:
     int getNumOfNodesEvaluated() override { return this->numNodesEvaluated; } ;
     std::vector<State<T>*> search(Searchable<T>* s) override {
+		mutex.lock();
         stack.push(s->getInitialState());
 		std::unordered_map<std::string, State<T>*> been;
 		been.insert({ s->getInitialState()->toString(),s->getInitialState() });
@@ -28,6 +29,9 @@ public:
 			stack.pop();
             numNodesEvaluated++;
             if (n->equals(s->getGoalState())) {
+				//cout << "FOUND GOAL" << endl;
+				cout << "DFS EVALUATED:" << numNodesEvaluated << endl;
+				mutex.unlock();
                 return n->backtrack();
             }
 

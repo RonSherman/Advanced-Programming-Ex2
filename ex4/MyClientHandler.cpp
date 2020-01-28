@@ -68,17 +68,17 @@ int MyClientHandler::handleClient(int socket) {
 			together = together + line;
 		}
 	}
-	cout << "finished waiting for client" << endl;
+	//cout << "finished waiting for client" << endl;
 	string temphashed = together;
-	cout << together << endl;
+	//cout << together << endl;
 	//check if solution exists
 	if (this->cm->hasSolution(together)){
 		std::string str = this->cm->getSolution(together);
-		cout << "sent to client-" << str << endl;
+		//cout << "sent to client-" << str << endl;
 		//std::string str = Solution::toString();
 		//str = str.append("\n");
 		send(socket, str.c_str(), strlen(str.c_str()), 0);
-		cout << "used solution found" << endl;
+		//cout << "used solution found" << endl;
 		return 1;
 	}
 	vector<string> messages;
@@ -93,23 +93,23 @@ int MyClientHandler::handleClient(int socket) {
 	//if there's something left, insert it
 	if(together.length()>0)
 		messages.push_back(together);
-	cout << together << endl;
-	cout << "got after together" << endl;
+	//cout << together << endl;
+	//cout << "got after together" << endl;
 	for (auto it = messages.begin(); it != messages.end(); it++) {
 		//cout << *it << endl;
 		//cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&" << endl;
 	}
-	cout << "finished messages" << endl;
-	cout << messages.size() << endl;
+	//cout << "finished messages" << endl;
+	//cout << messages.size() << endl;
 	//now we have every line, including entry and exit
 	string goal = messages.back();
 	messages.pop_back();
 	std::pair<int, int> goalPair(stoi(goal.substr(0, goal.find(","))), stoi(goal.substr(goal.find(",")+1)));
-	cout << goalPair.first << " "<< goalPair.second<<endl;
+	//cout << goalPair.first << " "<< goalPair.second<<endl;
 	string initial= messages.back();
 	messages.pop_back();
 	std::pair<int, int> initialPair(stoi(initial.substr(0, initial.find(","))), stoi(initial.substr(initial.find(",") + 1)));
-	cout << initialPair.first << " " << initialPair.second << endl;
+	//cout << initialPair.first << " " << initialPair.second << endl;
 	deque<deque<int>> costsLines;
 	//now interpet these into tuples
 	for (auto it = messages.begin(); it != messages.end(); it++) {
@@ -124,21 +124,21 @@ int MyClientHandler::handleClient(int socket) {
 		//cout << endl<<"END OF LINE"<<endl;
 
 	}
-	cout << "got before matrix" << endl;
+	//cout << "got before matrix" << endl;
 	//create the problem
 	MatrixProblem mp(costsLines,initialPair,goalPair);
-	cout << "got after matrix" << endl;
+	//cout << "got after matrix" << endl;
 	//use the solver to solve it and return a solution (still need to decide what's it)
 	vector<State<std::pair<int, int>>*> sol=this->solver->solve(mp);
-	cout << "got after solution" << endl;
+	//cout << "got after solution" << endl;
 	//cout<<this->solver.
 	//TODO- equals 0
-	cout <<"Solution size:"<< sol.size() << endl;
-	cout << "Printing solution" << endl;
+	//cout <<"Solution size:"<< sol.size() << endl;
+	//cout << "Printing solution" << endl;
 	for (auto it = sol.begin(); it!= sol.end(); it++) {
-		cout << "("<<(*it)->getState().first << "," << (*it)->getState().second<<")";
+		//cout << "("<<(*it)->getState().first << "," << (*it)->getState().second<<")";
 	}
-	cout << endl;
+	//cout << endl;
 	//reverse the vector, it's from end to start
 	std::reverse(sol.begin(), sol.end());
 	deque< string> actions;
@@ -189,7 +189,7 @@ int MyClientHandler::handleClient(int socket) {
 	}
 	//save the solution to cahceManager
 	this->cm->setSolution(temphashed, msg+'\n');
-	cout << "SENDING:" << msg << endl;
+	//cout << "SENDING:" << msg << endl;
 	//send to client
 	send(socket, msg.c_str(), strlen(msg.c_str()), 0);
 	//this->

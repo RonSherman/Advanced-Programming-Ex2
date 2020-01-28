@@ -1,5 +1,4 @@
 #include "MatrixProblem.h"
-#include "MatrixState.h"
 #include "CordinateState.h"
 #include <cstdlib>
 #include <algorithm>
@@ -52,7 +51,10 @@ MatrixProblem::MatrixProblem(std::deque<std::deque<int>> lines, pair<int,int> in
 		states2[i] = new State<std::pair<int, int>>*[col];
 		//initailize the row
 		for (int j = 0; j < col; j++) {
-			states2[i][j]  = new CordinateState(pair<int, int>(i, j));
+			CordinateState* asd = new CordinateState(pair<int, int>(i, j));
+			asd->setHeuristic(this->getHeuristicFunc(asd));
+			//put heuristic val
+			states2[i][j] = asd;
 			//cout << "Created state with (" << i << "," << j << ")";
 		}
 		//cout << endl << "ENDED LINE" << endl;
@@ -120,4 +122,12 @@ int MatrixProblem::getMovingCost(State<std::pair<int, int>>* state) {
 	int i = state->getState().first;
 	int j = state->getState().second;
 	return this->MovingCosts[i][j];
+}
+/*int MatrixProblem::manhatanDistance(State<std::pair<int, int>>* state) {
+	return (abs(state->getState().first - goal->getState().first) +
+		abs(state->getState().second - goal->getState().second));
+}*/
+int MatrixProblem::getHeuristicFunc(State<std::pair<int, int>>* state) {
+	return (abs(state->getState().first - goal->getState().first) +
+		abs(state->getState().second - goal->getState().second));
 }

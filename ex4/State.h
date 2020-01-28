@@ -10,6 +10,7 @@ protected:
 	double cost;
 	State<T>* father;
 	int movingCost;
+	double heuristicVal;
 public:
 	State(T t) : state(t) {};
 	virtual bool equals(State <T>* otherState) =0;
@@ -24,5 +25,7 @@ public:
 		//os << cost;
 	};
 	virtual std::string toString()=0;
+	double setHeuristic(double val) { this->heuristicVal = val; };
+	double getHeuristicVal() { return this->heuristicVal; };
 };
 #endif

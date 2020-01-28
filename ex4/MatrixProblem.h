@@ -19,6 +19,8 @@ public:
 	//List<State<T>> getAllNeighbors(State<T> state)=0;
 	std::vector<State<std::pair<int, int>>*> getAllNeighbors(State<std::pair<int, int>>* state) override ;
 	int getMovingCost(State<std::pair<int, int>>*) override;
+	//int MatrixProblem::manhatanDistance(State<std::pair<int, int>>* state);
+	int  getHeuristicFunc(State<std::pair<int, int>>* state) override;
 
 };
 #endif

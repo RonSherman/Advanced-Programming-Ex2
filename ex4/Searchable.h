@@ -14,6 +14,7 @@ public:
 	//List<State<T>> getAllNeighbors(State<T> state)=0;
 	virtual std::vector<State<T>*> getAllNeighbors(State<T>* state)=0;
 	virtual int getMovingCost(State<T>* state)=0;
+	virtual int getHeuristicFunc(State<T>* state)=0;
 
 };
 #endif

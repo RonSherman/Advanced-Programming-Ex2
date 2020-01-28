@@ -12,20 +12,21 @@
 #include "State.h"
 #include "AStarComparator.h"
 #include "MyPriorityQueue.h"
-
+#include <mutex>
 template <typename T>
-class AStar  : public Searcher<T>  {
+class AStar : public Searcher<T>  {
 private:
     int numNodesEvaluated = 0;
-    State<std::pair<int, int>> *goal;
+    //State<std::pair<int, int>> *goal;
     MyPriorityQueue<T,AStarComparator> openList;
+	std::mutex mutex;
 
 public:
     int getNumOfNodesEvaluated() override { return this->numNodesEvaluated; } ;
 
     std::vector<State<T>*> search(Searchable<T>* s) override {
-
-        this -> goal = s->getGoalState();
+		mutex.lock();
+        //this -> goal = s->getGoalState();
         this->numNodesEvaluated = 0;
         //auto compare=[](State<T>* lhs, State<T>* rhs) {
         //	return lhs->getCost() > rhs->getCost();
@@ -55,7 +56,8 @@ public:
 
             if (n->equals(s->getGoalState())) {
                 cout << "FOUND GOAL" << endl;
-                cout << "EVALUATED:" << numNodesEvaluated << endl;
+                cout << "ASTAR EVALUATED:" << numNodesEvaluated << endl;
+				mutex.unlock();
                 //return backtrace
                 return n->backtrack();
             }
@@ -104,7 +106,7 @@ public:
                         //this->openList.decrease_key(*it);
                         //if it's lower tham before, remove the old value
                         if ((*it)->getCost()>currCost) {
-                            cout << "updated new cost" << endl;
+                            //cout << "updated new cost" << endl;
                             (*it)->setParent(n);
                             (*it)->setCost(currCost);
                             this->openList.decrease_key(*it);

@@ -10,12 +10,14 @@
 #include "CordinateState.h"
 #include <unordered_map>
 #include "AStarComparator.h"
+#include <mutex>
 using namespace std;
 template <typename T>
 class BestSearch : public Searcher<T> {
 private:
 	int numNodesEvaluated = 0;
-	MyPriorityQueue<T,StateComparator<T>> openList;
+	MyPriorityQueue<T, StateComparator<T>> openList;
+	std::mutex mutex;
 	//std::pri
 	//priority queue openList
 	//set ClosedList
@@ -25,6 +27,7 @@ public:
 	};
 	int getNumOfNodesEvaluated() override { return this->numNodesEvaluated; } ;
 	std::vector<State<T>*> search(Searchable<T>* s) override {
+		mutex.lock();
 		this->numNodesEvaluated = 0;
 		//auto compare=[](State<T>* lhs, State<T>* rhs) {
 		//	return lhs->getCost() > rhs->getCost();
@@ -53,16 +56,17 @@ public:
 			//cout << "inserted "<<n->getCost()<< "to closed list-size" <<closed.size()<< endl;
 
 			if (n->equals(s->getGoalState())) {
-				cout << "FOUND GOAL" << endl;
-				cout << "EVALUATED:" << numNodesEvaluated << endl;
+				//cout << "FOUND GOAL" << endl;
+				cout << "BEST EVALUATED:" << numNodesEvaluated << endl;
+				mutex.unlock();
 				//return backtrace
 				return n->backtrack();
 			}
 			std::vector<State<T>*> neighbors = s->getAllNeighbors(n);
 			auto it = neighbors.begin();
-			if (neighbors.size() == 0) {
-				cout << "NO NEIGHBORS" << endl;
-			}
+			//if (neighbors.size() == 0) {
+				//cout << "NO NEIGHBORS" << endl;
+			//}
 			//int currCost = n->getCost() + s->getMovingCost(n);
 			
 			//for each neighbor
