@@ -15,7 +15,7 @@ template <typename T>
 class BestSearch : public Searcher<T> {
 private:
 	int numNodesEvaluated = 0;
-	MyPriorityQueue<T,AStarComparator> openList;
+	MyPriorityQueue<T,StateComparator<T>> openList;
 	//std::pri
 	//priority queue openList
 	//set ClosedList
