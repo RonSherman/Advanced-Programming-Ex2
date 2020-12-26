@@ -1,4 +1,4 @@
-# MitkademEx4
+# Advanced Programming Assignment 2
 This is a project created by Ron Sherman and Amit Nir.
 This project determines which search algorithm is the best, between BFS, DFS, AStar, BestSearch.
 The problems the server handles in this case are search problems but can be modified with the help of generics which are well spread in the project (we used it to solve search problems on matrices).
